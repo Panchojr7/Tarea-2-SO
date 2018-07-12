@@ -33,6 +33,7 @@ void quicksort(int number[25], int first, int last){
         }
 
         temp=number[pivot];
+        printf("el pitove es %d\n", temp);
         number[pivot]=number[j];
         number[j]=temp;
         quicksort(number,first,j-1);
@@ -43,7 +44,7 @@ void quicksort(int number[25], int first, int last){
 int main(){
     int i, count, number[25];
 
-    sthread_t mainthread;
+    //sthread_t mainthread;
 
     printf(YELLOW "How many elements are u going to enter?: " RESET);
     scanf("%d",&count);

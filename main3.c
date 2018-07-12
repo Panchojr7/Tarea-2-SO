@@ -18,7 +18,6 @@ typedef struct aka{
 }Arreglo;
 
 void quicksort(void * ar){
-    sthread_t hilo1, hilo2;
     Arreglo * arri = (Arreglo *) ar;
     int i, j, pivot, temp, k;
 
@@ -61,12 +60,8 @@ void quicksort(void * ar){
             temp2->number[i]= arri->number[i];
         }
 
-        sthread_create(&hilo1, &quicksort, &temp1);
-        sthread_create(&hilo2, &quicksort, &temp2);
-        sthread_exit(sthread_join(hilo1));
-        sthread_exit(sthread_join(hilo2));
-        //quicksort((void *) temp1);
-        //quicksort((void *) temp2);
+        quicksort((void *) temp1);
+        quicksort((void *) temp2);
         //free((void *) temp1);
         //free((void *) temp2);
     }
@@ -89,12 +84,7 @@ int main(){
         arry->number[i]= numbr[i];
     }
 
-    sthread_t hilo;
-    sthread_create(&hilo, &quicksort, &arry);
-    //quicksort((void *) arry);
-
-    //Arreglo * a = (Arreglo *)malloc(sizeof(Arreglo));
-    sthread_join(hilo);
+    quicksort((void *) arry);
 
 
     printf(GREEN "Order of Sorted elements: " CYAN);
