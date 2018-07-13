@@ -21,9 +21,9 @@ void quicksort(int number[25], int first, int last){
         j=last;
 
         while(i<j){
-            while(number[i]<=number[pivot]&&i<last)
+            while(number[i] <= number[pivot] && i < last)
                 i++;
-            while(number[j]>number[pivot])
+            while(number[j] > number[pivot])
                 j--;
             if(i<j){
                 temp=number[i];
@@ -33,9 +33,11 @@ void quicksort(int number[25], int first, int last){
         }
 
         temp=number[pivot];
-        printf("el pitove es %d\n", temp);
+        printf("el pivote es %d\n", temp);
+
         number[pivot]=number[j];
         number[j]=temp;
+
         quicksort(number,first,j-1);
         quicksort(number,j+1,last);
     }
@@ -43,8 +45,6 @@ void quicksort(int number[25], int first, int last){
 
 int main(){
     int i, count, number[25];
-
-    //sthread_t mainthread;
 
     printf(YELLOW "How many elements are u going to enter?: " RESET);
     scanf("%d",&count);

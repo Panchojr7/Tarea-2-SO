@@ -61,8 +61,9 @@ void quicksort(void * ar){
             temp2->number[i]= arri->number[i];
         }
 
-        sthread_create(&hilo1, &quicksort, &temp1);
-        sthread_create(&hilo2, &quicksort, &temp2);
+        sthread_create(&hilo1, &quicksort, temp1);
+        sthread_create(&hilo2, &quicksort, temp2);
+
         sthread_exit(sthread_join(hilo1));
         sthread_exit(sthread_join(hilo2));
         //quicksort((void *) temp1);
@@ -91,13 +92,12 @@ int main(){
 
     sthread_t hilo;
     sthread_create(&hilo, &quicksort, &arry);
-    //quicksort((void *) arry);
 
-    //Arreglo * a = (Arreglo *)malloc(sizeof(Arreglo));
     sthread_join(hilo);
 
 
     printf(GREEN "Order of Sorted elements: " CYAN);
+
     for(i=0;i<count;i++)
         printf(" %d", arry->number[i]);
     printf("\n" RESET);

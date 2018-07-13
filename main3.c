@@ -19,13 +19,14 @@ typedef struct aka{
 
 void quicksort(void * ar){
     Arreglo * arri = (Arreglo *) ar;
-    int i, j, pivot, temp, k;
+    int i, j, pivot, k, temp, p;
+    k = arri->last;
+
 
     if(arri->first < arri->last){
-        pivot=arri->first;
-        i=arri->first;
-        j=arri->last;
-        k=j;
+        pivot = arri->first;
+        i = arri->first;
+        j = arri->last;
 
         while(i<j){
             while(arri->number[i] <= arri->number[pivot] && i < arri->last)
@@ -40,30 +41,29 @@ void quicksort(void * ar){
         }
 
         temp = arri->number[pivot];
+        printf("el pivote es %d\n", temp);
+
         arri->number[pivot] = arri->number[j];
         arri->number[j] = temp;
 
-        printf("el pitove es %d\n", temp);
 
         Arreglo * temp1 = (Arreglo *)malloc(sizeof(Arreglo));
         Arreglo * temp2 = (Arreglo *)malloc(sizeof(Arreglo));
 
         temp1->first = arri->first;
-        temp1->last = j-1;
-        for(i=0;i<k;i++){
-            temp1->number[i]= arri->number[i];
-        }
+        temp1->last = j - 1;
 
-        temp2->first = j+1;
+        temp2->first = j + 1;
         temp2->last = arri->last;
-        for(i=0;i<k;i++){
-            temp2->number[i]= arri->number[i];
+
+        p = 0;
+        for(p=0; p < k; p++){
+            temp1->number[p]= arri->number[p];
+            temp2->number[p]= arri->number[p];
         }
 
         quicksort((void *) temp1);
         quicksort((void *) temp2);
-        //free((void *) temp1);
-        //free((void *) temp2);
     }
 }
 
@@ -77,6 +77,7 @@ int main(){
     scanf("%d",&count);
 
     arry->last = count-1;
+
 
     printf(GREEN "Enter %d elements: " BLUE, count);
     for(i=0;i<count;i++){
