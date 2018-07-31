@@ -17,64 +17,69 @@ typedef struct aka{
     int number[25];
 }Arreglo;
 
-void quicksort(void * ar){
-    sthread_t hilo1, hilo2;
-    Arreglo * arri = (Arreglo *) ar;
-    int i, j, pivot, temp, k;
+void imprimir(int arreglo[], int largo){
+    int i;
+    for(i=0;i<largo;i++)
+            printf(" %d", arreglo[i]);
+        printf("\n" RESET);
+}
 
-    if(arri->first < arri->last){
-        pivot=arri->first;
-        i=arri->first;
-        j=arri->last;
-        k=j;
+void quicksort(Arreglo * arry){
+    int i, j, pivot, temp, k, caux;
+
+    if(arry->first < arry->last){
+        pivot=arry->first;
+        i=arry->first;
+        j=arry->last;
+        k=j+1;
 
         while(i<j){
-            while(arri->number[i] <= arri->number[pivot] && i < arri->last)
+            while(arry->number[i] <= arry->number[pivot] && i < arry->last)
                 i++;
-            while(arri->number[j] > arri->number[pivot])
+            while(arry->number[j] > arry->number[pivot])
                 j--;
             if(i<j){
-                temp = arri->number[i];
-                arri->number[i] = arri->number[j];
-                arri->number[j] = temp;
+                temp = arry->number[i];
+                arry->number[i] = arry->number[j];
+                arry->number[j] = temp;
             }
         }
 
-        temp = arri->number[pivot];
-        arri->number[pivot] = arri->number[j];
-        arri->number[j] = temp;
+        temp = arry->number[pivot];
+        arry->number[pivot] = arry->number[j];
+        arry->number[j] = temp;
 
-        printf("el pitove es %d\n", temp);
+        printf("el pivote es %d\n", temp);
 
         Arreglo * temp1 = (Arreglo *)malloc(sizeof(Arreglo));
         Arreglo * temp2 = (Arreglo *)malloc(sizeof(Arreglo));
 
-        temp1->first = arri->first;
+        temp1->first = arry->first;
         temp1->last = j-1;
-        for(i=0;i<k;i++){
-            temp1->number[i]= arri->number[i];
-        }
 
         temp2->first = j+1;
-        temp2->last = arri->last;
-        for(i=0;i<k;i++){
-            temp2->number[i]= arri->number[i];
+        temp2->last = arry->last;
+
+        for(caux=0;caux<k;caux++){
+            temp1->number[caux]= arry->number[caux];
+            temp2->number[caux]= arry->number[caux];
         }
 
-        sthread_create(&hilo1, &quicksort, temp1);
-        sthread_create(&hilo2, &quicksort, temp2);
+        sthread_t hilo1, hilo2;
+        sthread_create(&hilo1, (void*)&quicksort, (void*)temp1);
+        sthread_create(&hilo2, (void*)&quicksort, (void*)temp2);
 
-        sthread_exit(sthread_join(hilo1));
-        sthread_exit(sthread_join(hilo2));
-        //quicksort((void *) temp1);
-        //quicksort((void *) temp2);
-        //free((void *) temp1);
-        //free((void *) temp2);
+        sthread_join(hilo1);
+        sthread_join(hilo2);
     }
+        printf("weakla\n");
+        imprimir(arry->number, k+1);
+
 }
 
 int main(){
-    int i, count, numbr[25];
+    int n, count;
+    int numbr[25];
     Arreglo * arry = (Arreglo *)malloc(sizeof(Arreglo));
     
     arry->first = 0;
@@ -85,22 +90,17 @@ int main(){
     arry->last = count-1;
 
     printf(GREEN "Enter %d elements: " BLUE, count);
-    for(i=0;i<count;i++){
-        scanf("%d",&numbr[i]);
-        arry->number[i]= numbr[i];
+    for(n=0;n<count;n++){
+        scanf("%d",&numbr[n]);
+        arry->number[n]= numbr[n];
     }
 
     sthread_t hilo;
-    sthread_create(&hilo, &quicksort, &arry);
-
+    sthread_create(&hilo, (void*)&quicksort, (void*)arry);
     sthread_join(hilo);
 
-
     printf(GREEN "Order of Sorted elements: " CYAN);
-
-    for(i=0;i<count;i++)
-        printf(" %d", arry->number[i]);
-    printf("\n" RESET);
+    imprimir(arry->number, count);
 
     return 0;
 }
