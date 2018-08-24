@@ -1,11 +1,21 @@
 # Tarea-2-SO
-Tarea N° 2 SO
+Tarea N° 2 SO 
+  
+## *Nota: 50*  
+  
+* Francisco Rousseau  
+* 201573546-8
 
+
+**Nota:** El ejercicio 1 de las funciones no está terminado.
 
 ## Metodo de compilacion  
-* make main*  * =1, 2 o 3  
 
-## Mains:  
-*main1: original / Status **[Funcional]**  
-*main2: structs / Status **[Funcional]**  
-*main3: structs y threads / Status **[Desconocido]**
+### Ejercicio 1:  
+make funcion  
+
+### Ejercicio 2:  
+make orden  
+
+## Para ejecutar:  
+usar ./exe para ambos casos.
