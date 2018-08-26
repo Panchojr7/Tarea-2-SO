@@ -12,10 +12,13 @@ Tarea N° 2 SO
 ## Metodo de compilacion  
 
 ### Ejercicio 1:  
+```
 make funcion  
-
+```
 ### Ejercicio 2:  
+```
 make orden  
+```
 
 ## Para ejecutar:  
-usar ./exe para ambos casos.
+Usar ./exe para ambos casos.
